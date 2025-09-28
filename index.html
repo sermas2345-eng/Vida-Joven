@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Vida Joven</title>
+<meta name="theme-color" content="#535CE0">
+<style>
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    font-family: "Didot", serif;
+    background: #535CE0;
+    color: white;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body { display: flex; flex-direction: column; }
+  .container {
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    text-align: center;
+    overflow-y: auto;
+  }
+  h2, h3, p { margin: 8px 0; font-size: 1.2em; }
+  input, textarea, button {
+    width: 90%; margin: 6px 0; padding: 10px;
+    font-size: 16px; border-radius: 8px; border: none;
+    box-sizing: border-box; touch-action: manipulation;
+    -webkit-appearance: none; outline: none;
+  }
+  input, textarea { color: black; }
+  button { background: white; color: #535CE0; font-weight: bold; cursor: pointer; }
+  button:hover { background: #ddd; }
+  .chat-box {
+    background: white; color: black; padding: 10px;
+    border-radius: 8px; height: 250px; width: 90%;
+    overflow-y: auto;
+  }
+  .chat-input { display: flex; width: 90%; margin-top: 8px; }
+  .chat-input input { flex: 1; margin-right: 5px; padding: 10px; font-size: 16px; border-radius: 8px; }
+
+  /* MENÚ COMPACTO */
+  #menu h2 { font-family: 'Didot', serif; font-size: 1.3em; margin-bottom: 15px; }
+  #menu-buttons {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 6px; justify-items: center; align-items: center; width: 100%;
+  }
+  #menu-buttons button {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    height: 65px; font-size: 14px; border-radius: 6px;
+  }
+  #menu-buttons button span.icon { font-size: 18px; margin-bottom: 4px; }
+  @media (max-width: 360px){
+    h2 { font-size: 1.1em; }
+    #menu-buttons button { height: 60px; font-size: 13px; }
+    #menu-buttons button span.icon { font-size: 16px; }
+    .chat-box { height: 180px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login" class="container" style="display:flex;">
+  <h2>Iniciar Sesión</h2>
+  <input type="email" id="loginEmail" placeholder="Correo" required>
+  <input type="password" id="loginPass" placeholder="Contraseña" required>
+  <button id="btnLogin">Entrar</button>
+  <button id="btnShowRegister">Registrarse</button>
+</div>
+
+<!-- REGISTRO -->
+<div id="register" class="container">
+  <h2>Crear Cuenta</h2>
+  <input type="text" id="regNombre" placeholder="Nombre" required>
+  <input type="email" id="regEmail" placeholder="Correo" required>
+  <input type="password" id="regPass" placeholder="Contraseña" required>
+  <button id="btnRegister">Crear cuenta</button>
+  <button onclick="showSection('login')">Atrás</button>
+</div>
+
+<!-- MENÚ -->
+<div id="menu" class="container">
+  <h2>Bienvenida a tu espacio seguro llamado "Vida Joven"</h2>
+  <div id="menu-buttons">
+    <button onclick="showSection('educacion')"><span class="icon">📚</span> Educación Sexual</button>
+    <button onclick="showSection('calendario')"><span class="icon">📅</span> Calendario Menstrual</button>
+    <button onclick="showSection('chat')"><span class="icon">💬</span> Chat</button>
+    <button id="btnLogout"><span class="icon">🚪</span> Cerrar Sesión</button>
+  </div>
+</div>
+
+<!-- EDUCACIÓN -->
+<div id="educacion" class="container">
+  <h2>Educación Sexual</h2>
+  <button onclick="showSection('embarazo')">Síntomas de embarazo</button>
+  <button onclick="showSection('consulta')">Consulta si persisten</button>
+  <button onclick="showSection('secretos')">Secretos para una vida sexual larga y saludable</button>
+  <button onclick="showSection('its')">ITS que se deben conocer</button>
+  <button onclick="showSection('menu')">Atrás</button>
+</div>
+
+<div id="embarazo" class="container">
+  <h2>Síntomas de embarazo</h2>
+  <p>Náuseas, mareos, retraso menstrual, cansancio extremo y cambios de humor pueden ser señales iniciales.</p>
+  <button onclick="showSection('educacion')">Atrás</button>
+</div>
+
+<div id="consulta" class="container">
+  <h2>Consulta si persisten</h2>
+  <p>Si los síntomas continúan o empeoran, es importante acudir al médico para recibir orientación profesional.</p>
+  <button onclick="showSection('educacion')">Atrás</button>
+</div>
+
+<div id="secretos" class="container">
+  <h2>Secretos para una vida sexual larga y saludable</h2>
+  <p>Comunicación, cuidado mutuo, chequeos médicos regulares y prácticas seguras son claves.</p>
+  <button onclick="showSection('educacion')">Atrás</button>
+</div>
+
+<div id="its" class="container">
+  <h2>ITS que se deben conocer</h2>
+  <p>Algunas ITS comunes son VIH, sífilis, gonorrea, VPH y clamidia. Usar protección y hacerse pruebas reduce riesgos.</p>
+  <button onclick="showSection('educacion')">Atrás</button>
+</div>
+
+<!-- CALENDARIO -->
+<div id="calendario" class="container">
+  <h2>Calendario Menstrual</h2>
+  <p>Esta herramienta les ayudará a llevar un control más claro de su periodo menstrual y síntomas.</p>
+  <input type="date" id="periodoFecha">
+  <button id="btnPeriodo">Agregar fecha de periodo</button>
+  <button onclick="showSection('sintoma')">Agregar síntoma de embarazo</button>
+  <button onclick="showSection('registros')">Ver registros</button>
+  <button onclick="showSection('chat')">Ir al chat</button>
+  <button onclick="showSection('menu')">Atrás</button>
+</div>
+
+<!-- AGREGAR SÍNTOMA -->
+<div id="sintoma" class="container">
+  <h2>Agregar síntoma de embarazo</h2>
+  <input type="date" id="sintomaFecha">
+  <textarea id="sintomaDesc" placeholder="Describe el síntoma"></textarea>
+  <button id="btnSintoma">Guardar Síntoma</button>
+  <button onclick="showSection('calendario')">Atrás</button>
+</div>
+
+<!-- REGISTROS -->
+<div id="registros" class="container">
+  <h2>Historial de Registros</h2>
+  <div id="listaRegistros" style="width:90%;"></div>
+  <button onclick="showSection('calendario')">Atrás</button>
+</div>
+
+<!-- CHAT -->
+<div id="chat" class="container">
+  <h2>Chat de Orientación</h2>
+  <div class="chat-box" id="chatBox"></div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="Escribe tu pregunta...">
+    <button id="btnSend">Enviar</button>
+  </div>
+  <button onclick="showSection('menu')">Atrás</button>
+</div>
+
+<script>
+function showSection(id){
+  document.querySelectorAll('.container').forEach(c=>c.style.display='none');
+  document.getElementById(id).style.display='flex';
+}
+
+let users={}; try{ users=JSON.parse(localStorage.getItem("users")||"{}"); } catch(e){ users={}; }
+let currentUser=localStorage.getItem("currentUser")||null;
+if(currentUser) showSection("menu");
+
+document.getElementById("btnRegister").addEventListener("click", ()=>{
+  const nombre=document.getElementById("regNombre").value.trim();
+  const email=document.getElementById("regEmail").value.trim().toLowerCase();
+  const pass=document.getElementById("regPass").value.trim();
+  if(!nombre||!email||!pass){alert("Completa todos los campos."); return;}
+  if(users[email]){alert("Este correo ya está registrado."); return;}
+  users[email]={nombre,pass,registros:[]};
+  localStorage.setItem("users",JSON.stringify(users));
+  alert("Cuenta creada con éxito.");
+  showSection("login");
+});
+
+document.getElementById("btnLogin").addEventListener("click", ()=>{
+  try{ users=JSON.parse(localStorage.getItem("users")||"{}"); } catch(e){ users={}; }
+  const email=document.getElementById("loginEmail").value.trim().toLowerCase();
+  const pass=document.getElementById("loginPass").value.trim();
+  if(users[email] && users[email].pass===pass){
+    currentUser=email;
+    localStorage.setItem("currentUser",email);
+    showSection("menu");
+  } else { alert("Datos incorrectos."); }
+});
+
+document.getElementById("btnShowRegister").addEventListener("click", ()=>showSection("register"));
+document.getElementById("btnLogout").addEventListener("click", ()=>{
+  currentUser=null;
+  localStorage.removeItem("currentUser");
+  showSection("login");
+});
+
+document.getElementById("btnPeriodo").addEventListener("click", ()=>{
+  const fecha=document.getElementById("periodoFecha").value;
+  if(!fecha){alert("Selecciona una fecha."); return;}
+  let inicio=new Date(fecha), fin=new Date(inicio);
+  fin.setDate(inicio.getDate()+9);
+  const registro=`Periodo: ${inicio.toLocaleDateString()} - ${fin.toLocaleDateString()}`;
+  users[currentUser].registros.push(registro);
+  localStorage.setItem("users",JSON.stringify(users));
+  alert("Periodo agregado.");
+});
+
+document.getElementById("btnSintoma").addEventListener("click", ()=>{
+  const fecha=document.getElementById("sintomaFecha").value;
+  const desc=document.getElementById("sintomaDesc").value.trim();
+  if(!fecha||!desc){alert("Completa todos los campos."); return;}
+  const registro=`Síntoma (${fecha}): ${desc}`;
+  users[currentUser].registros.push(registro);
+  localStorage.setItem("users",JSON.stringify(users));
+  alert("Síntoma agregado.");
+  showSection("calendario");
+});
+
+document.querySelector("button[onclick=\"showSection('registros')\"]").addEventListener("click", ()=>{
+  const cont=document.getElementById("listaRegistros"); cont.innerHTML="";
+  (users[currentUser].registros||[]).forEach(r=>{const p=document.createElement("p"); p.textContent=r; cont.appendChild(p);});
+});
+
+document.getElementById("btnSend").addEventListener("click", ()=>{
+  const input=document.getElementById("chatInput");
+  const msg=input.value.trim(); if(!msg) return;
+  addChat("Tú",msg); input.value="";
+  setTimeout(()=>addChat("Vida Joven",responder(msg)),500);
+});
+
+function addChat(user,msg){
+  const box=document.getElementById("chatBox");
+  const p=document.createElement("p");
+  p.innerHTML=`<strong>${user}:</strong> ${msg}`;
+  box.appendChild(p);
+  box.scrollTop=box.scrollHeight;
+}
+
+function responder(msg){
+  msg=msg.toLowerCase();
+  if(msg.includes("preservativo")) return "Recuerda usar preservativos para proteger tu salud sexual.";
+  if(msg.includes("ciclo")) return "Lleva un control en el calendario para mayor seguridad.";
+  if(msg.includes("embarazo")) return "Los primeros síntomas pueden ser retraso menstrual, náuseas, mareos.";
+  if(msg.includes("its")) return "Las ITS comunes incluyen VIH, sífilis, gonorrea, VPH y clamidia.";
+  return "Gracias por tu mensaje. Revisa la sección de educación sexual para más información.";
+}
+</script>
+</body>
+</html>
